@@ -1,0 +1,56 @@
+{{> layout/header}}
+<h1>머스태치 기본 문법</h1>
+
+<!-- 주석 : 브라우저의 페이지 소스 보기에 그대로 보임. -->
+{{! 머스태치 주석 : 서버에서 지워져 브라우저에 전달되지 않음.}}
+<h2>1. 값 출력</h2>
+<p>문자열 : {{stringValue}}</p>
+<p>숫자 : {{intValue}}</p>
+
+<h2>2. 조건(섹션 , 반전 섹션)</h2>
+{{#isLogin}} {{! isLogin이 true값이라면 아래 p태그가 보임}}
+    <p>로그인 상태입니다(true일때 보임)</p>
+{{/isLogin}}
+
+{{^isLogin}} {{! isLogin이 false값이라면 아래 p태그가 보임-- '^' 는 반전 섹션}}
+    <p>로그인이 필요합니다(false일때 보임)</p>
+{{/isLogin}}
+
+
+{{#notice}}
+    {{notice}} : 값이 있을 때 변수에 출력됨.
+{{/notice}}
+
+
+{{^emptyList}} {{! 현재 emptyList는 List.of()로 빈 리스트이다. --> falsy. 그러므로 #emptyList는 출력 안됨.}}
+    <p>데이터가 없습니다.(빈 리스트는 거짓으로 취급)</p>
+{{/emptyList}}
+
+<h2>3. 반복</h2>
+{{! 키값이 없는 반복문은 '.' 점만 찍으면 된다.}}
+<ul>
+    {{#fruits}}
+        <li>{{.}}</li>
+    {{/fruits}}
+</ul>
+
+<table border="1">
+    <tr>
+        <th>이름</th>
+        <th>나이</th>
+    </tr>
+    {{#users}} {{! users의 타입이 자료구조(리스트)이고 현재 3개의 값이 들어가있음. 3번 반복해서 출력.}}
+        <tr>
+            <td>{{name}}</td>
+            <td>{{age}}</td>
+        </tr>
+    {{/users}}
+</table>
+
+
+<h2>4. 점(.)으로 안쪽 값 꺼내기</h2>
+<p>직업 {{info.job}} , 지역 : {{info.city}}</p>
+
+<h2>5. 이스케이프 비교</h2>
+<p>중괄호 2개 : {{htmlContent}}</p>
+<p>중괄호 3개 : {{{htmlContent}}}</p>
